@@ -1,0 +1,144 @@
+.highlight {
+  background-color: rgb(243, 243, 123);
+}
+
+.sum-row {
+  background-color: rgb(235, 229, 227);
+  font-weight: 700;
+  width: 100%;
+}
+
+.average-row {
+  background-color: rgb(235, 229, 227);
+  font-weight: 600;
+  font-weight: 700;
+}
+
+.buses-row {
+  background-color: rgb(235, 229, 227);
+  font-weight: 600;
+  font-weight: 700;
+}
+
+.limit-row {
+  background-color: rgb(235, 229, 227);
+  font-weight: 700;
+}
+
+.date-range-box {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.align-toggles {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0px;
+}
+
+.toggle-switch {
+  .toggle {
+    width: 100px;
+    height: 44px;
+    position: relative;
+    display: inline-block;
+    border: 1px solid #edeff3;
+    border-radius: 25px;
+    cursor: pointer;
+    top: 8px;
+  }
+
+  .toggle input {
+    display: none;
+  }
+
+  .toggle .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    background-color: #fff;
+    transition: all 0.4s ease-in-out;
+  }
+
+  .toggle .slider::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 5px;
+    width: 26px;
+    height: 26px;
+    border-radius: 100%;
+    background-color: #ccc;
+    transition: all 0.4s ease-in-out;
+  }
+
+  .toggle input:checked+.slider {
+    background-color: #f2f8ff;
+  }
+
+  .toggle input:checked+.slider::before {
+    transform: translateX(60px);
+    background-color: #348fd6;
+  }
+
+  .toggle .labels {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 13px;
+    transition: all 0.4s ease-in-out;
+    display: flex;
+    align-items: center;
+    color: #667085;
+  }
+
+  .toggle .labels::after {
+    content: attr(data-off);
+    position: absolute;
+    right: 12px;
+    color: #667085;
+    opacity: 1;
+    transition: all 0.4s ease-in-out;
+  }
+
+  .toggle .labels::before {
+    content: attr(data-on);
+    position: absolute;
+    left: 12px;
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+  }
+
+  .toggle input:checked~.labels::after {
+    opacity: 0;
+  }
+
+  .toggle input:checked~.labels::before {
+    opacity: 1;
+  }
+}
+
+.headings-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0px;
+}
+
+@media screen and (max-width: 680px) {
+  .headings-toggle {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+  }
+
+  .toggle-switch {
+    .toggle {
+      top: 0px;
+    }
+  }
+}

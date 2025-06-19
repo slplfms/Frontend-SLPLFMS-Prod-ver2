@@ -1,0 +1,16 @@
+body{
+    height: 100vh;
+}
+#root{
+    height: 100%;
+}
+.css-zbi050-MuiContainer-root{
+    padding-top: 10px !important;
+}
+/* .css-xu1r15-MuiCardContent-root{
+    padding: 0px !important;
+} */
+
+.MuiDataGrid-virtualScroller{
+    min-height: 300px;
+}

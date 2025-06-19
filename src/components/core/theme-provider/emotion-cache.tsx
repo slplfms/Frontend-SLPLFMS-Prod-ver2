@@ -1,0 +1,53 @@
+import * as React from "react";
+import createCache from "@emotion/cache";
+import type {
+  EmotionCache,
+  Options as OptionsOfCreateCache,
+} from "@emotion/cache";
+import { CacheProvider as DefaultCacheProvider } from "@emotion/react";
+
+interface Registry {
+  cache: EmotionCache;
+  flush: () => { name: string; isGlobal: boolean }[];
+}
+
+export interface NextAppDirEmotionCacheProviderProps {
+  options: Omit<OptionsOfCreateCache, "insertionPoint">;
+  CacheProvider?: (props: {
+    value: EmotionCache;
+    children: React.ReactNode;
+  }) => React.JSX.Element | null;
+  children: React.ReactNode;
+}
+
+// Adapted from https://github.com/garronej/tss-react/blob/main/src/next/appDir.tsx
+export default function NextAppDirEmotionCacheProvider(
+  props: NextAppDirEmotionCacheProviderProps
+): React.JSX.Element {
+  const { options, CacheProvider = DefaultCacheProvider, children } = props;
+
+  const [registry] = React.useState<Registry>(() => {
+    const cache = createCache(options);
+    cache.compat = true;
+    // eslint-disable-next-line @typescript-eslint/unbound-method -- Expected
+    const prevInsert = cache.insert;
+    let inserted: { name: string; isGlobal: boolean }[] = [];
+    cache.insert = (...args) => {
+      const [selector, serialized] = args;
+
+      if (cache.inserted[serialized.name] === undefined) {
+        inserted.push({ name: serialized.name, isGlobal: !selector });
+      }
+
+      return prevInsert(...args);
+    };
+    const flush = (): { name: string; isGlobal: boolean }[] => {
+      const prevInserted = inserted;
+      inserted = [];
+      return prevInserted;
+    };
+    return { cache, flush };
+  });
+
+  return <CacheProvider value={registry.cache}>{children}</CacheProvider>;
+}
