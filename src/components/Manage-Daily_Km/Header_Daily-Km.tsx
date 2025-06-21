@@ -17,7 +17,7 @@ import { useUser } from "../../hooks/use-user";
 import { userRoleType } from "../../constants/role";
 
 const header = [
-  { label: "Vehicle", key: "Vehicle.make" },
+  { label: "Vehicle", key: "Vehicle.registrationNumber" },
   { label: "User", key: "User.name" },
   { label: "Center", key: "Center.name" },
   { label: "Odo Meter", key: "odometer" },
